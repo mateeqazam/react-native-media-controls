@@ -18,6 +18,7 @@ import PLAYER_STATES, { type PlayerState } from './Constants';
 
 type Props = {
   toolbar: Node,
+  statsbar: Node,
   mainColor: string,
   isLoading: boolean,
   progress: number,
@@ -180,6 +181,7 @@ class MediaControls extends Component<Props, State> {
       playerState,
       progress,
       toolbar,
+      statsbar,
     } = this.props;
 
     // this let us block the controls
@@ -193,27 +195,30 @@ class MediaControls extends Component<Props, State> {
         <View style={[styles.controlsRow]}>
           {isLoading && this.setLoadingView()}
         </View>
-        <View style={[styles.controlsRow, styles.progressContainer]}>
-          {this.setPlayerControls(playerState)}
-          <View style={styles.progressColumnContainer}>
-            <View style={[styles.timerLabelsContainer]}>
-              <Text style={styles.timerLabel}>
-                {humanizeVideoDuration(progress)}
-              </Text>
-              <Text style={styles.timerLabel}>
-                {humanizeVideoDuration(duration)}
-              </Text>
+        <View style={[styles.controlsRow]}>
+          <View style={[styles.controlsRow, styles.statsRow]}>{statsbar}</View>
+          <View style={[styles.progressContainer]}>
+            {this.setPlayerControls(playerState)}
+            <View style={styles.progressColumnContainer}>
+              <View style={[styles.timerLabelsContainer]}>
+                <Text style={styles.timerLabel}>
+                  {humanizeVideoDuration(progress)}
+                </Text>
+                <Text style={styles.timerLabel}>
+                  {humanizeVideoDuration(duration)}
+                </Text>
+              </View>
+              <Slider
+                style={styles.progressSlider}
+                onValueChange={this.dragging}
+                onSlidingComplete={this.seekVideo}
+                maximumValue={Math.floor(duration)}
+                value={Math.floor(progress)}
+                trackStyle={styles.track}
+                thumbStyle={[styles.thumb, { borderColor: mainColor }]}
+                minimumTrackTintColor={mainColor}
+              />
             </View>
-            <Slider
-              style={styles.progressSlider}
-              onValueChange={this.dragging}
-              onSlidingComplete={this.seekVideo}
-              maximumValue={Math.floor(duration)}
-              value={Math.floor(progress)}
-              trackStyle={styles.track}
-              thumbStyle={[styles.thumb, { borderColor: mainColor }]}
-              minimumTrackTintColor={mainColor}
-            />
           </View>
         </View>
       </View>
@@ -226,6 +231,7 @@ class MediaControls extends Component<Props, State> {
         <Animated.View
           style={[styles.container, { opacity: this.state.opacity }]}
         >
+          <Text>Hello</Text>
           {this.renderControls()}
         </Animated.View>
       </TouchableWithoutFeedback>

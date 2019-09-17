@@ -56,19 +56,22 @@ export default StyleSheet.create({
     height: 20,
     resizeMode: 'stretch',
   },
+  statsRow: {
+    justifyContent: 'flex-end',
+  },
   progressContainer: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginBottom: -25,
+    alignItems: 'flex-end',
+    paddingBottom: 15,
   },
   progressColumnContainer: {
     flex: 1,
   },
   fullScreenContainer: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
     paddingRight: 20,
+    paddingBottom: 15,
   },
   progressSlider: {
     alignSelf: 'stretch',
