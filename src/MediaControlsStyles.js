@@ -68,7 +68,7 @@ export default StyleSheet.create({
     alignSelf: 'stretch',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingLeft: 20,
+    paddingRight: 20,
   },
   progressSlider: {
     alignSelf: 'stretch',

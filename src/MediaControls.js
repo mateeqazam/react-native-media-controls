@@ -23,7 +23,7 @@ type Props = {
   progress: number,
   duration: number,
   playerState: PlayerState,
-  onFullScreen: Function,
+  // onFullScreen: Function,
   onPaused: Function,
   onReplay: Function,
   onSeek: Function,
@@ -93,7 +93,7 @@ class MediaControls extends Component<Props, State> {
       playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
     return (
       <TouchableOpacity
-        style={[styles.playButton, { backgroundColor: this.props.mainColor }]}
+        style={styles.fullScreenContainer}
         onPress={pressAction}
       >
         <Image source={icon} style={styles.playIcon} />
@@ -176,7 +176,7 @@ class MediaControls extends Component<Props, State> {
       duration,
       isLoading,
       mainColor,
-      onFullScreen,
+      // onFullScreen,
       playerState,
       progress,
       toolbar,
@@ -186,16 +186,15 @@ class MediaControls extends Component<Props, State> {
     if (!this.state.isVisible) return null;
 
     // eslint ignore next $FlowFixMe
-    const fullScreenImage = require('./assets/ic_fullscreen.png');
+    // const fullScreenImage = require('./assets/ic_fullscreen.png');
     return (
       <View style={styles.container}>
         <View style={[styles.controlsRow, styles.toolbarRow]}>{toolbar}</View>
         <View style={[styles.controlsRow]}>
-          {isLoading
-            ? this.setLoadingView()
-            : this.setPlayerControls(playerState)}
+          {isLoading && this.setLoadingView()}
         </View>
         <View style={[styles.controlsRow, styles.progressContainer]}>
+          {this.setPlayerControls(playerState)}
           <View style={styles.progressColumnContainer}>
             <View style={[styles.timerLabelsContainer]}>
               <Text style={styles.timerLabel}>
@@ -216,12 +215,6 @@ class MediaControls extends Component<Props, State> {
               minimumTrackTintColor={mainColor}
             />
           </View>
-          <TouchableOpacity
-            style={styles.fullScreenContainer}
-            onPress={onFullScreen}
-          >
-            <Image source={fullScreenImage} />
-          </TouchableOpacity>
         </View>
       </View>
     );
