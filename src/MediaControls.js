@@ -231,7 +231,6 @@ class MediaControls extends Component<Props, State> {
         <Animated.View
           style={[styles.container, { opacity: this.state.opacity }]}
         >
-          <Text>Hello</Text>
           {this.renderControls()}
         </Animated.View>
       </TouchableWithoutFeedback>
