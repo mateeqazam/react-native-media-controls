@@ -129,6 +129,7 @@ class MediaControls extends Component<Props, State> {
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
     this.state.opacity.stopAnimation((value: number) => {
       this.setState({ isVisible: !!value });
+      this.onPause();
       return value ? this.fadeOutControls() : this.fadeInControls();
     });
   };
