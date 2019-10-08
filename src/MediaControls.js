@@ -127,6 +127,7 @@ class MediaControls extends Component<Props, State> {
   toggleControls = () => {
     // value is the last value of the animation when stop animation was called.
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
+    const { playerState } = this.props;
     const pressAction =
       playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
     pressAction();
