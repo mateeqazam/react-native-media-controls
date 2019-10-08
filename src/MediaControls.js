@@ -127,9 +127,11 @@ class MediaControls extends Component<Props, State> {
   toggleControls = () => {
     // value is the last value of the animation when stop animation was called.
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
+    const pressAction =
+      playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
+    pressAction();
     this.state.opacity.stopAnimation((value: number) => {
       this.setState({ isVisible: !!value });
-      this.onPause();
       return value ? this.fadeOutControls() : this.fadeInControls();
     });
   };
