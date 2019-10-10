@@ -200,7 +200,7 @@ class MediaControls extends Component<Props, State> {
     return (
       <TouchableWithoutFeedback onPress={this.toggleControls}>
         <Animated.View
-          style={[styles.container, { opacity: this.state.opacity }]}
+          style={[styles.container, { opacity: 1 }]}
         >
           {this.renderControls()}
         </Animated.View>
