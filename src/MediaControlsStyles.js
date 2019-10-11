@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingVertical: 13,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'rgba(45, 59, 62, 0.4)',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
     top: 0,
     left: 0,

@@ -152,12 +152,12 @@ class MediaControls extends Component<Props, State> {
   fadeInControls = (loop: boolean = true) => {
     this.setState({ isVisible: true });
     Animated.timing(this.state.opacity, {
-      toValue: 0,
+      toValue: 1,
       duration: 300,
       delay: 0,
     }).start(() => {
       if (loop) {
-        this.fadeOutControls(6000);
+        this.fadeOutControls(5000);
       }
     });
   };
