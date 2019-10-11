@@ -206,7 +206,7 @@ class MediaControls extends Component<Props, State> {
             <View style={styles.progressColumnContainer}>
               <View style={[styles.timerLabelsContainer]}>
                 <Text style={styles.timerLabel}>
-                  {humanizeVideoDuration(progress)}
+                  {humanizeVideoDuration(Math.ceil(progress))}
                 </Text>
                 <Text style={styles.timerLabel}>
                   {humanizeVideoDuration(duration)}
@@ -217,7 +217,7 @@ class MediaControls extends Component<Props, State> {
                 onValueChange={this.dragging}
                 onSlidingComplete={this.seekVideo}
                 maximumValue={Math.floor(duration)}
-                value={Math.floor(progress)}
+                value={Math.ceil(progress)}
                 trackStyle={styles.track}
                 thumbStyle={[styles.thumb, { borderColor: mainColor }]}
                 minimumTrackTintColor={mainColor}
