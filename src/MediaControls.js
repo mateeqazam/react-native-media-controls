@@ -52,14 +52,17 @@ class MediaControls extends Component<Props, State> {
   };
 
   componentDidMount() {
+    this.fadeOutControls(5000);
   }
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.playerState === PLAYER_STATES.ENDED) {
+      this.fadeInControls(false);
     }
   }
 
   onReplay = () => {
+    this.fadeOutControls(5000);
     this.props.onReplay();
   };
 
@@ -72,6 +75,7 @@ class MediaControls extends Component<Props, State> {
         break;
       }
       case PAUSED: {
+        this.fadeOutControls(5000);
         break;
       }
       default:
@@ -127,6 +131,35 @@ class MediaControls extends Component<Props, State> {
     const pressAction =
       playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
     pressAction();
+    this.state.opacity.stopAnimation((value: number) => {
+      this.setState({ isVisible: !!value });
+      return value ? this.fadeOutControls() : this.fadeInControls();
+    });
+  };
+
+  fadeOutControls = (delay: number = 0) => {
+    Animated.timing(this.state.opacity, {
+      toValue: 0,
+      duration: 300,
+      delay,
+    }).start(result => {
+      /* I noticed that the callback is called twice, when it is invoked and when it completely finished
+      This prevents some flickering */
+      if (result.finished) this.setState({ isVisible: false });
+    });
+  };
+
+  fadeInControls = (loop: boolean = true) => {
+    this.setState({ isVisible: true });
+    Animated.timing(this.state.opacity, {
+      toValue: 0,
+      duration: 300,
+      delay: 0,
+    }).start(() => {
+      if (loop) {
+        this.fadeOutControls(6000);
+      }
+    });
   };
 
   dragging = (value: number) => {
@@ -200,7 +233,7 @@ class MediaControls extends Component<Props, State> {
     return (
       <TouchableWithoutFeedback onPress={this.toggleControls}>
         <Animated.View
-          style={[styles.container, { opacity: 1 }]}
+          style={[styles.container, { opacity: this.state.opacity }]}
         >
           {this.renderControls()}
         </Animated.View>
