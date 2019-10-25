@@ -187,7 +187,6 @@ class MediaControls extends Component<Props, State> {
       toolbar,
       statsbar,
     } = this.props;
-    console.log(Math.ceil(progress), duration);
     // this let us block the controls
     if (!this.state.isVisible) return null;
 
