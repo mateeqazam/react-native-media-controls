@@ -127,10 +127,10 @@ class MediaControls extends Component<Props, State> {
   toggleControls = () => {
     // value is the last value of the animation when stop animation was called.
     // As this is an opacity effect, I (Charlie) used the value (0 or 1) as a boolean
-    const { playerState } = this.props;
-    const pressAction =
-      playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
-    pressAction();
+    // const { playerState } = this.props;
+    // const pressAction =
+    //   playerState === PLAYER_STATES.ENDED ? this.onReplay : this.onPause;
+    // pressAction();
     this.state.opacity.stopAnimation((value: number) => {
       this.setState({ isVisible: !!value });
       return value ? this.fadeOutControls() : this.fadeInControls();
@@ -187,7 +187,7 @@ class MediaControls extends Component<Props, State> {
       toolbar,
       statsbar,
     } = this.props;
-
+    console.log(Math.ceil(progress), duration);
     // this let us block the controls
     if (!this.state.isVisible) return null;
 
@@ -217,7 +217,11 @@ class MediaControls extends Component<Props, State> {
                 onValueChange={this.dragging}
                 onSlidingComplete={this.seekVideo}
                 maximumValue={Math.floor(duration)}
-                value={Math.ceil(progress)}
+                value={
+                  Math.ceil(progress) === duration
+                    ? Math.floor(duration)
+                    : Math.ceil(progress)
+                }
                 trackStyle={styles.track}
                 thumbStyle={[styles.thumb, { borderColor: mainColor }]}
                 minimumTrackTintColor={mainColor}
