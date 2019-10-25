@@ -209,7 +209,7 @@ class MediaControls extends Component<Props, State> {
                   {humanizeVideoDuration(Math.ceil(progress))}
                 </Text>
                 <Text style={styles.timerLabel}>
-                  {humanizeVideoDuration(duration)}
+                  {humanizeVideoDuration(Math.ceil(duration))}
                 </Text>
               </View>
               <Slider
@@ -218,7 +218,7 @@ class MediaControls extends Component<Props, State> {
                 onSlidingComplete={this.seekVideo}
                 maximumValue={Math.floor(duration)}
                 value={
-                  Math.ceil(progress) === duration
+                  Math.ceil(progress) === Math.ceil(duration)
                     ? Math.floor(duration)
                     : Math.ceil(progress)
                 }
